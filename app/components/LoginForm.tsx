@@ -5,9 +5,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, type LoginFormData } from "@/lib/validation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/use-auth";
 
 export default function LoginForm() {
+  const router = useRouter();
+  const { login } = useAuth();
+
   const {
     register,
     handleSubmit,
@@ -35,6 +39,7 @@ export default function LoginForm() {
   }, [setValue]);
 
   const watchedValues = watch();
+
   useEffect(() => {
     if (watchedValues.email) {
       localStorage.setItem("loginEmail", watchedValues.email);
@@ -47,12 +52,8 @@ export default function LoginForm() {
   const onSubmit = async (data: LoginFormData) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      localStorage.setItem("userEmail", data.email);
-      localStorage.setItem("loginTimestamp", new Date().toISOString());
-
-      console.log("Login successful:", data);
-      alert("Login successful!");
+      login(data.email);
+      router.push("/products");
     } catch (error) {
       console.error("Login failed:", error);
       alert("Login failed!");
@@ -60,7 +61,7 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="h-screen bg-gray-200 flex items-center justify-center p-4">
+    <div className="h-screen  flex items-center justify-center">
       <div className="bg-[#3F3F3F] rounded-[2.4rem] px-[6.5rem] w-full max-w-[720px] h-[580px]">
         <h2 className="mt-[2.4rem] text-white text-[3.2rem] font-medium text-center">
           Login
@@ -98,15 +99,13 @@ export default function LoginForm() {
           </div>
 
           <div className="mt-[6.9rem] flex justify-center">
-            <Link href="/products">
-              <Button
-                type="submit"
-                disabled={isSubmitting}
-                className="cursor-pointer bg-[#55B4C9] hover:bg-sky-600 text-white font-medium p-[2.4rem] text-[3.2rem] rounded w-full max-w-[296px]"
-              >
-                {isSubmitting ? "Signing in..." : "Go"}
-              </Button>
-            </Link>
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="cursor-pointer bg-[#55B4C9] hover:bg-sky-600 text-white font-medium p-[2.4rem] text-[3.2rem] rounded w-full max-w-[296px]"
+            >
+              {isSubmitting ? "Signing in..." : "Go"}
+            </Button>
           </div>
         </form>
       </div>

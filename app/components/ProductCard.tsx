@@ -30,7 +30,6 @@ export default function ProductCard({ product }: ProductCardProps) {
         />
       </div>
 
-      {/* Flex container for content that grows */}
       <div className="flex-1 flex flex-col">
         <h4 className="mt-[1.4rem] text-[1.6rem] font-medium line-clamp-2">
           {product.title}

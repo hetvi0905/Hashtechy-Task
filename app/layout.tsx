@@ -13,7 +13,8 @@ const poppins = Poppins({
 
 export const metadata = {
   title: "E-com Shopping Cart",
-  description: "Your App Description",
+  description:
+    "A modern e-commerce shopping cart built with Next.js, Redux, TypeScript, Tailwind CSS, and ShadCN UI. Includes product listing, cart functionality, login/logout flow, and collapsible side menu.",
 };
 
 export default function RootLayout({

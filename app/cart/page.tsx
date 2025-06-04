@@ -92,7 +92,6 @@ export default function CartPage() {
                 </div>
               ))}
 
-              {/* Total row within the same grid structure */}
               <div className="grid grid-cols-[400px_100px_400px] gap-[2rem] items-center py-[1.6rem]">
                 <div className="pl-[2rem]"></div>
                 <div className="text-center">
